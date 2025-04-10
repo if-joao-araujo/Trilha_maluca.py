@@ -1,4 +1,4 @@
-
+"""
 from tkinter import *
 from tkinter import ttk
 
@@ -14,5 +14,8 @@ butao.bind("")
 butao2 = butao = Button(frame1, text="Não")
 butao2["width"] = 50
 butao2.pack(side="right")
-janela.mainloop()
+janela.mainloop()"""
+import pygame
+print(pygame.__version__)
+
 

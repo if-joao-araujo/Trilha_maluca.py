@@ -1,9 +1,13 @@
+
+from random import choice
 from random import randint
 from time import sleep
 
 print("Bem-vindo à Trilha Maluca!\n")
 
+
 # Jogadores
+
 posicao_jogador1 = 0
 posicao_jogador2 = 0
 
@@ -12,6 +16,13 @@ regresso = "Regresso <--"
 
 caminho_tamanho = 17
 armadilhas = [3, 6, 9, 12, 15]
+
+#perguntas
+questionamentos = {"questionamento1":"usa oculos, ensina duas materias no curso de ads e as provas são dificeis",
+"questionamento2":"sempre com alto astral, anda sempre no estilo, pesadelo para quem é timido",
+"questionamento3":"torce para o sport, sempre está com roupa azul, trabalha no ifpe", 
+"questionamento4":"comida,-,"}  
+questionamento_aleatorio = choice(list(questionamentos.items()))
 
 loop = True
 while loop == True:
@@ -28,7 +39,7 @@ while loop == True:
     while loop == False:
         # Jogador 1
         dado = randint(1, 6)
-        print(f"O jogador 1 jogou o dado e o número sorteado foi {dado}!")
+        print(f"Voçe jogou  o dado  e o número sorteado foi {dado}!")
         print(f"Você se deslocou {dado} casas \n")
     
         for deslocamento1 in range(dado):
@@ -37,7 +48,7 @@ while loop == True:
             posicao_jogador1 += 1
     
         if posicao_jogador1 in armadilhas:
-           print(f"o jogador1 está na posição {posicao_jogador1}  e será punido!")
+           print(f"Voçe  está na posição {posicao_jogador1}  e será punido!")
            print(regresso)
            sleep(1.5)
            posicao_jogador1 -= 1
@@ -73,7 +84,7 @@ while loop == True:
              print("Aconteceu um empate, ambos jogadores passaram da linha de chegada")
         else:
             print("vamos para a proxima rodade!\n")
-            print(f"a posição atual do jogador 1 é {posicao_jogador1}\n posição atual do jogador 2 é {posicao_jogador2}\n ")
+            print(f"Sua posição atual  é {posicao_jogador1}\n posição atual do jogador 2 é {posicao_jogador2}\n ")
             sleep(0.5)
             print("......")
             sleep(0.5)
