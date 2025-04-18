@@ -1,92 +1,130 @@
-
-from random import choice
-from random import randint
+from random import choice, randint
 from time import sleep
 
 print("Bem-vindo à Trilha Maluca!\n")
 
-
-# Jogadores
-
+# Configurações do jogo
 posicao_jogador1 = 0
 posicao_jogador2 = 0
-
 passo = "Passo -->"
 regresso = "Regresso <--"
+caminho_tamanho = 16
+armadilhas = [2,5,7,9,13]
 
-caminho_tamanho = 17
-armadilhas = [3, 6, 9, 12, 15]
+# Banco de perguntas e respostas
+questionamentos = {
+    "questionamento1": {
+        "pergunta": "print(2 + 3 * 4):",
+        "opcoes": ["a) 20", "b) 14", "c) 24", "d) Erro"],
+        "resposta": "b"
+    },
+    "questionamento2": {
+        "pergunta": "Python é baseado em qual linguagem de programação?",
+        "opcoes": ["a) Java", "b) C", "c) Assembly", "d) Ruby"],
+        "resposta": "b"
+    },
+    "questionamento3": {
+        "pergunta": "Qual sistema numérico o computador reconhece?",
+        "opcoes": ["a) Decimal", "b) Binário", "c) Hexadecimal", "d) Octal"],
+        "resposta": "b"
+    },
+    "questionamento4": {
+        "pergunta": "Na operação lógica OR: 1 e 0 = ?",
+        "opcoes": ["a) 0", "b) 1", "c) 10", "d) Nenhuma das anteriores"],
+        "resposta": "b"
+    },
+    "questionamento5": {
+        "pergunta": "Em qual ano o Python foi criado?",
+        "opcoes": ["a) 1989", "b) 1995", "c) 2000", "d) 1991"],
+        "resposta": "d"
+    },
+    "questionamento6": {
+        "pergunta": "Python é uma linguagem...",
+        "opcoes": ["a) Compilada", "b) Interpretada", "c) Híbrida", "d) Nenhuma das anteriores"],
+        "resposta": "b"
+    },
+    "questionamento7": {
+        "pergunta": "Qual biblioteca é usada na criação de jogos em Python?",
+        "opcoes": ["a) Pandas", "b) Pygame", "c) TensorFlow", "d) Django"],
+        "resposta": "b"
+    }
+}
 
-#perguntas
-questionamentos = {"questionamento1":"usa oculos, ensina duas materias no curso de ads e as provas são dificeis",
-"questionamento2":"sempre com alto astral, anda sempre no estilo, pesadelo para quem é timido",
-"questionamento3":"torce para o sport, sempre está com roupa azul, trabalha no ifpe", 
-"questionamento4":"comida,-,"}  
-questionamento_aleatorio = choice(list(questionamentos.items()))
+def fazer_pergunta(jogador):
+    questao = choice(list(questionamentos.values()))
+    print(f"\nJogador {jogador}: {questao['pergunta']}")
+    for opcao in questao['opcoes']:
+        print(opcao)
+    
+    resposta = input("Sua resposta (a/b/c/d): ").lower()
+    return resposta == questao['resposta']
 
-loop = True
-while loop == True:
-    sortear = str(input("deseja sortear o dado? [s] [n]: ")).lower()
-    if sortear == "s":
-        print("sorteando dado...")
+while True:
+    # Jogador 1
+    print("\nVez do Jogador 1:")
+    if fazer_pergunta(1):
+        print("Resposta correta! Jogando o dado...")
         sleep(1)
-        loop = False
-    elif sortear == "n":
-        print("Não seja chato!!, digite sim[s]")
-    else:
-        print("digite [s] ou [n]")
-
-    while loop == False:
-        # Jogador 1
         dado = randint(1, 6)
-        print(f"Voçe jogou  o dado  e o número sorteado foi {dado}!")
-        print(f"Você se deslocou {dado} casas \n")
-    
-        for deslocamento1 in range(dado):
+        print(f"Você jogou o dado e o número sorteado foi {dado}!")
+        
+        for _ in range(dado):
             print(passo)
-            sleep(1.5)
+            sleep(1)
             posicao_jogador1 += 1
-    
-        if posicao_jogador1 in armadilhas:
-           print(f"Voçe  está na posição {posicao_jogador1}  e será punido!")
-           print(regresso)
-           sleep(1.5)
-           posicao_jogador1 -= 1
-        print(f" sua posição atual é {posicao_jogador1} \n" )
-        print("=|="*10)
-       
-        # Jogador 2
-        dado2 = randint(1, 6)
-        print(f"O jogador 2 jogou o dado e o número sorteado foi {dado2}\n")
-        print(f"O jogador 2 se deslocou {dado2} posições.")
-        for deslocamento2 in range(dado2):
+        for pos1 in armadilhas:   
+            if posicao_jogador1 == pos1:
+               print(f"Armadilha na posição {posicao_jogador1}! Voltando 1 casa.")
+               print(regresso)
+               posicao_jogador1 -= 1
+               sleep(1)
+    else:
+        print("Resposta errada! Perdeu a vez.")
+
+ 
+
+    print(f"Posição atual do Jogador 1: {posicao_jogador1}\n")
+    print("="*20)
+    sleep(1)
+    # Jogador 2
+    print("\nVez do Jogador 2:")
+    if fazer_pergunta(2):
+        print("Resposta correta! Jogando o dado...")
+        sleep(1)
+        dado = randint(1, 6)
+        print(f"Jogador 2 jogou o dado e o número sorteado foi {dado}!")
+        
+        for _ in range(dado):
             print(passo)
-            sleep(1.5)
+            sleep(1)
             posicao_jogador2 += 1
+        for pos2 in armadilhas: 
+            if posicao_jogador2 == pos2:
+               print(f"Armadilha na posição {posicao_jogador1}! Voltando 1 casa.")
+               print(regresso)
+               posicao_jogador1 -= 1
+               sleep(1)        
+    else:
+        print("Resposta errada! Perdeu a vez.")
+        print("="*20)
+    sleep(1)
+    print(f"Posição atual do Jogador 2: {posicao_jogador2}\n")
+    print("="*20)
+    sleep(1)
+ 
+    # Verificação de vitória Jogador 1
+    if posicao_jogador1 >= caminho_tamanho:
+        print("Jogador 1 venceu!")
+        break
+    # Verificação de vitória Jogador 2
+    if posicao_jogador2 >= caminho_tamanho:
+        print("Jogador 2 venceu!")
+        break
     
-        if posicao_jogador2 in armadilhas:
-           print(f"o jogador2 está na posição {posicao_jogador2}  e será punido!")
-           print(regresso)
-           posicao_jogador2 -= 1
-        print(f"a posição do jogador 2 atual é {posicao_jogador2} \n")
-        print("=|="*10)
-        # Condições de vitória
-        if posicao_jogador1 > caminho_tamanho:
-            print("Você ganhou!")
-            sleep(2)
-            break
-    
-        elif posicao_jogador2 > caminho_tamanho:
-            print("A máquina venceu!")
-            sleep(2)
-            break
-        elif posicao_jogador1 and posicao_jogador2  > caminho_tamanho:
-             print("Aconteceu um empate, ambos jogadores passaram da linha de chegada")
-        else:
-            print("vamos para a proxima rodade!\n")
-            print(f"Sua posição atual  é {posicao_jogador1}\n posição atual do jogador 2 é {posicao_jogador2}\n ")
-            sleep(0.5)
-            print("......")
-            sleep(0.5)
-            loop = True
-    
+    # Verificação de empate
+    if posicao_jogador1 >= caminho_tamanho and posicao_jogador2 >= caminho_tamanho:
+        print("Empate! Ambos chegaram ao final.")
+        break
+
+    print("Próxima rodada em 3 segundos...")
+    sleep(3)
