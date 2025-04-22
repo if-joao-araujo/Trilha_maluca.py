@@ -21,7 +21,19 @@ AZUL = (0, 0, 255)
 janela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption("trilha maluca") 
 
-objeto_pos = [400, 300]
+fonte = pygame.font.SysFont(None,36)
+#os jogadores
+
+
+#posição dos meus objetos
+x1 = 120
+y1 = 650
+
+    
+x2 = 180
+y2 = 650
+jog2 = pygame.draw.circle(janela, VERDE,(x2,y2),20)
+   
 
 while True:
     
@@ -32,8 +44,12 @@ while True:
     
     janela.fill(PRETO)
     
-    objeto_pos = list(pygame.mouse.get_pos())
 
+    texto = fonte.render("questionario", True, BRANCO, AZUL)
+    
+    jog1 = pygame.draw.circle(janela, AZUL,(x1,y1),20)
+    jog2 = pygame.draw.circle(janela, VERDE,(x2,y2),20)
+   
 
     pygame.draw.rect(janela,AZUL,(1010,100,100,100))
     pygame.draw.rect(janela,VERMELHO,(980,100,100,100))
@@ -51,18 +67,9 @@ while True:
     pygame.draw.rect(janela,VERMELHO,(100,430,100,100))
     pygame.draw.rect(janela,BRANCO,(100,540,100,100))
  
- #posição dos meus objetos
-    x1 = 120
-    y1 = 650
-    pygame.draw.circle(janela, AZUL,(x1,y1),20)
-    
-    x2 = 180
-    y2 = 650
-    pygame.draw.circle(janela, VERDE,(x2,y2),20)
-   
+ 
     
     #janela com o questionario
     pygame.draw.rect( janela,BRANCO,(210,210,1100,900))
-    
     
     pygame.display.update()
